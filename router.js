@@ -7,8 +7,8 @@ function capitalizeFirstLetter(s){
 //////////////////////////////////////////////////////////////////////
 // dispatch_API_EndPoint middleware
 // parse the req.url that must have the following format:
-// /api/{ressource name} or
-// /api/{ressource name}/{id}
+// /api/{resource name} or
+// /api/{resource name}/{id}
 // then select the targeted controller
 // using the http verb (req.method) and optionnal id
 // call the right controller function
@@ -17,13 +17,13 @@ function capitalizeFirstLetter(s){
 //
 // Important note about controllers:
 // You must respect pluralize convention: 
-// For ressource name RessourName you have to name the controller
-// RessourceNamesController that must inherit from Controller class
+// For resource name RessourName you have to name the controller
+// ResourceNamesController that must inherit from Controller class
 /////////////////////////////////////////////////////////////////////
 exports.dispatch_API_EndPoint = function(req, res){
 
-    const Reponse = require("./response");
-    let response = new Reponse(res);
+    const Response = require("./response");
+    let response = new Response(res);
 
     // this function extract the JSON data from the body of the request
     // and and pass it to controllerMethod
@@ -47,7 +47,7 @@ exports.dispatch_API_EndPoint = function(req, res){
         });
     }
 
-    let controllerName = '';
+    let controllerName = 'BookmarksController';
     let id = undefined;
 
     // this function check if url contain a valid API endpoint.
@@ -56,7 +56,7 @@ exports.dispatch_API_EndPoint = function(req, res){
         // ignore the query string, it will be handled by the targeted controller
         let queryStringMarkerPos = url.indexOf('?');
         if (queryStringMarkerPos > -1)
-            url = url.substr(0, url.indexOf('?'));
+            url = url.substr(0, queryStringMarkerPos);
         // by convention api endpoint start with /api/...
         if (url.indexOf('/api/') > -1) {
             // extract url componants, array from req.url.split("/") should 

@@ -17,12 +17,13 @@ class Controller {
     getQueryStringParams(){
         let url = this.req.url;
         if (url.indexOf('?') > -1) {
-            url = url.substring(url.indexOf('?'),url.length);
-            const parsed = queryString.parse(url);
+            let query = url.substring(url.indexOf('?'),url.length);
+            const parsed = queryString.parse(query);
             return parsed;
         }
         return null;
     }
+    
     getAll(){
         this.response.notImplemented();
     }

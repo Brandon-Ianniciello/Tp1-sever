@@ -9,6 +9,6 @@
   "author": "Nicolas Chourot - august 2020",
   "license": "ISC",
   "dependencies": {
-    "query-string": "^6.13.2"
+    "query-string": "^6.14.1"
   }
 }

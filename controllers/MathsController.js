@@ -46,9 +46,10 @@ class MathsController extends require('./Controller') {
     
     checkParams(params){
         if ('op' in params) {
+            if (params.op === ' ')
+                params.op = '+';
             switch (params.op){
-                case ' ': // add operation
-                case '.': // add operation               
+                case '+': // add operation             
                 case '-': // substract operation
                 case '*': // multiply operation
                 case '/': // divide operation
@@ -75,7 +76,7 @@ class MathsController extends require('./Controller') {
                     break;
                 case '!': // factorial operation
                 case 'p': // is prime number operation
-                case 'n': // find nth prime number operation
+                case 'np': // find nth prime number operation
                     if ('n' in params){
                         let n = parseFloat(params.n);
                         if (!isNaN(n)) {
@@ -105,10 +106,8 @@ class MathsController extends require('./Controller') {
    
     doOperation(params){
         switch (params.op){
-            case ' ': // add operation
-            case '.': // add operation
-                params.op = '+';
-                this.result(params, parseFloat(params.x) + parseFloat(params.y));
+            case '+': // add operation
+                  this.result(params, parseFloat(params.x) + parseFloat(params.y));
                 break;              
             case '-': // substract operation
                 this.result(params, parseFloat(params.x) - parseFloat(params.y));
@@ -128,7 +127,7 @@ class MathsController extends require('./Controller') {
             case 'p': // is prime number operation
                 this.result(params, isPrime(parseInt(params.n)));
                 break;
-            case 'n': // find the nth prime number operation
+            case 'np': // find the nth prime number operation
                 this.result(params, findPrime(parseInt(params.n)));
                 break;
         }
@@ -145,7 +144,7 @@ class MathsController extends require('./Controller') {
         content += "<h4>? op = % & x = number & y = number <br>return {\"op\":\"%\", \"x\":number, \"y\":number, \"value\": x % y} </h4>";
         content += "<h4>? op = ! & n = integer <br>return {\"op\":\"%\",\"n\":integer, \"value\": n!} </h4>";
         content += "<h4>? op = p & n = integer <br>return {\"op\":\"p\",\"n\":integer, \"value\": true if n is a prime number} </h4>";
-        content += "<h4>? op = n & n = integer <br>return {\"op\":\"n\",\"n\":integer, \"value\": nth prime number} </h4>";
+        content += "<h4>? op = np & n = integer <br>return {\"op\":\"n\",\"n\":integer, \"value\": nth prime number} </h4>";
         this.res.writeHead(200, {'content-type':'text/html'});
         this.res.end(content) + "</div>";
     }

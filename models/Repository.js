@@ -63,6 +63,25 @@ class Repository {
         }
         return null;
     }
+    getByName(name){
+        for(let object of this.objectsList){
+            if(object.Name.toLowerCase() == name){
+                return object;
+            }
+        }
+        return null;
+    }
+    getByCategorie(categorie){
+        let array = [];
+        console.log(categorie)
+        for(let object of this.objectsList){
+            if(object.Category.toLowerCase() === categorie.toLowerCase()){
+                array.push(object);
+            }
+        }
+        console.log(array);
+        return array;
+    }
     remove(id) {
         let index = 0;
         for(let object of this.objectsList){
@@ -74,6 +93,13 @@ class Repository {
             index ++;
         }
         return false;
+    }
+    removeAll(){
+        let index = 0;
+        for(let object of this.objectsList){
+            this.remove(object.Id)
+            index++;
+        }
     }
     update(objectToModify) {
         let index = 0;
@@ -87,4 +113,41 @@ class Repository {
         }
         return false;
     }
+    sortByName(){
+        let arrayByNames = [];
+        for(let object of this.objectsList){
+            arrayByNames[object.Id] = object.Name;
+        }
+        arrayByNames = arrayByNames.sort();
+        let array = [];
+        console.log(arrayByNames.length)
+        for(let i = 0; i < arrayByNames.length; i++){
+            for(let j = 0; j < this.objectsList.length; j++){
+                if(arrayByNames[i] === this.objectsList[j].Name){
+                    array[i] = this.objectsList[j];
+                    j = this.objectsList.length;
+                }
+            }
+        }
+        return array;
+    }
+    sortByCategory(){
+        let arrayByCat = [];
+        for(let object of this.objectsList){
+            arrayByCat[object.Id] = object.Category;
+        }
+        arrayByCat = arrayByCat.sort();
+        let array = [];
+        console.log(arrayByCat.length)
+        for(let i = 0; i < arrayByCat.length; i++){
+            for(let j = 0; j < this.objectsList.length; j++){
+                if(arrayByCat[i] === this.objectsList[j].Category){
+                    array[i] = this.objectsList[j];
+                    j = this.objectsList.length;
+                }
+            }
+        }
+        return array;
+    }
+
 }
